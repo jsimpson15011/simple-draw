@@ -1,32 +1,86 @@
-.App {
-  text-align: center;
+body{
+  background-color: #406a8f;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.canvas{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  width: 50%;
+  max-width: 525px;
+  min-width: 280px;
+  padding: 15px;
+  border: 5px #212328 solid;
+  border-top: none;
+  background-color: #2e3338;
+  box-shadow: rgba(18, 18, 18, 0.54) 15px 15px 14px 6px;
+  border-radius: 0 0 25px 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5vh;
 }
-
-.App-link {
-  color: #61dafb;
+button{
+  display: block;
+  outline: none;
+  border: transparent 2px solid;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.canvas-cell:hover{
+  border: #39ecff solid 2px;
+  cursor: crosshair;
+}
+.color-selector-container{
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #4c5358;
+  width: 100%;
+  padding-bottom: 15px;
+  border-radius: 0 0 25px 25px;
+}
+.color-selector{
+  width: 50%;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  border: #363636 solid 3px;
+  border-bottom: #7f7f7c solid 5px;
+  border-left: #b5b5b2 solid 5px;
+  border-radius: 15px;
+}
+.color-selector:active{
+  border: #363636 solid 5px;
+  border-bottom: #7f7f7c solid 2px;
+  border-left: #b5b5b2 solid 5px;
+}
+.undo-redo-container{
+  display: flex;
+  height: 35px;
+  margin-top: 25px;
+}
+.undo,.redo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #2b374e;
+  border: #292f34 2px solid;
+  border-bottom: black 4px solid;
+  border-left: black 3px solid;
+}
+.undo:active,.redo:active{
+  background-color: #1c2837;
+  border: #000000 4px solid;
+  border-bottom: black 2px solid;
+  border-left: black 1px solid;
+}
+.red-button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #4e0e15;
+  border: #292f34 2px solid;
+  border-bottom: black 4px solid;
+  border-left: black 3px solid;
+}
+.red-button:active{
+  background-color: #300a0c;
+  border: #000000 4px solid;
+  border-bottom: black 2px solid;
+  border-left: black 1px solid;
 }
