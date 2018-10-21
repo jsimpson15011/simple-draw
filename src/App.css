@@ -34,6 +34,10 @@ button{
   padding-bottom: 15px;
   border-radius: 0 0 25px 25px;
 }
+.upper-control-container{
+  display: flex;
+  align-items: center;
+}
 .color-selector{
   width: 50%;
   height: 50px;
@@ -54,16 +58,23 @@ button{
   height: 35px;
   margin-top: 25px;
 }
-.undo,.redo{
+.blue-button{
   display: block;
   margin-left: auto;
   margin-right: auto;
+  width: 60px;
   background-color: #2b374e;
   border: #292f34 2px solid;
   border-bottom: black 4px solid;
   border-left: black 3px solid;
 }
-.undo:active,.redo:active{
+button img{
+  display: block;
+  width: 24px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blue-button:active{
   background-color: #1c2837;
   border: #000000 4px solid;
   border-bottom: black 2px solid;
