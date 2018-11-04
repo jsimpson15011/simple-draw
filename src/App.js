@@ -7,16 +7,15 @@ const history = [];
 let colorIndex = 0;
 let historyIndex = -1;
 let cleared = true;
-
+let canvasWidth = 15;
 class App extends Component {
     constructor(props) {
-        let canvasWidth = 15;
         let canvasSize = Math.pow(canvasWidth, 2);
         super(props);
         this.state = {
             canvasSize: canvasSize,
             colorSelector: 'black',
-            canvas: Array(canvasSize * canvasSize).fill('white'),
+            canvas: Array(canvasSize).fill('white'),
             tool: 'draw',
             drawBackground:'#4e6890',
             fillBackground:'',
@@ -79,7 +78,72 @@ class App extends Component {
                 );
                 break;
             case 'fill':
-                newState[i+2] = this.state.colorSelector;
+                let fillIndex=0;
+                let colorCheck=false;
+                let cellsToCheckAboveArray=[];
+                let cellsToCheckBelowArray=[];
+                let cellsToRunFillOnArray=[];
+                const colorClicked=newState[i];
+                let fillRow= (direction,startingCell)=>{
+                    while(colorCheck===false){//Fills row until reaching color delimiter going right
+                        newState[startingCell+fillIndex] = this.state.colorSelector;
+                        if (newState[(fillIndex+startingCell)-canvasWidth]===colorClicked){//if cell directly above is same color add to array
+                            const cellToCheck=(fillIndex+startingCell)-canvasWidth;
+                            const lastAddedCell=cellsToCheckAboveArray[cellsToCheckAboveArray.length-1];
+                            if (lastAddedCell===cellToCheck-1||lastAddedCell===cellToCheck+1){
+                                cellsToCheckAboveArray.push(cellToCheck);
+                            }
+                            else {
+                                cellsToRunFillOnArray.push(cellToCheck);
+                                cellsToCheckAboveArray.push(cellToCheck);
+                            }
+                        }
+                        if (newState[(fillIndex+startingCell)+canvasWidth]===colorClicked){
+                            const cellToCheck=(fillIndex+startingCell)+canvasWidth;
+                            const lastAddedCell=cellsToCheckBelowArray[cellsToCheckBelowArray.length-1];
+                            if (lastAddedCell===cellToCheck-1||lastAddedCell===cellToCheck+1){
+                                cellsToCheckBelowArray.push(cellToCheck);
+                            }
+                            else {
+                                cellsToRunFillOnArray.push(cellToCheck);
+                                cellsToCheckBelowArray.push(cellToCheck);
+                            }
+                        }
+                        if (direction==='right'){
+                            fillIndex++;
+                        }
+                        if (direction==='left'){
+                            fillIndex--;
+                        }
+                        //console.log((startingCell-canvasWidth)+newState[startingCell+fillIndex-canvasWidth]);
+
+                        if (newState[startingCell+fillIndex]!==colorClicked||((startingCell+fillIndex)%canvasWidth)===0){
+                            if(direction==='right'){
+                                colorCheck=true;
+                            }
+                        }
+                        if (newState[startingCell+fillIndex]!==colorClicked||((startingCell+fillIndex)%canvasWidth)===canvasWidth-1){
+                            if (direction==='left'){
+                                colorCheck=true;
+                            }
+                        }
+                    }
+                    colorCheck=false;
+                    fillIndex=0;
+                };
+                fillRow('left',i);
+                fillRow('right',i);
+                cellsToRunFillOnArray=cellsToRunFillOnArray.filter(function(item, index){
+                    return cellsToRunFillOnArray.indexOf(item) >= index;
+                });
+                console.table(cellsToRunFillOnArray);
+
+                while (cellsToRunFillOnArray.length>0){
+                    let runningCell=cellsToRunFillOnArray.pop();
+                    console.log(runningCell);
+                    fillRow('left',runningCell);
+                    fillRow('right',runningCell);
+                }
                 this.setState(
                     {canvas: newState}
                 );
@@ -229,7 +293,7 @@ class App extends Component {
         let buttons = []
         for (let i = 0; i < this.state.canvasSize; i++) {
             buttons.push(<Button
-                className={'canvas-cell'}
+                className={'canvas-cell '+this.state.tool+'-tool'}
                 key={i}
                 onClick={() => {
                     this.handleClick(i)

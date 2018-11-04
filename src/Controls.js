@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 let pencilIconName= require('./draw-icon.png');
-let bucketIconName= require('./bucket-icon.png');
+let bucketIconName= require('./paint-bucket-mouse-icon.png');
 class Controls extends Component {
     render() {
         return (

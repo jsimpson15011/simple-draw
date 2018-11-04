@@ -22,9 +22,13 @@ button{
   outline: none;
   border: transparent 2px solid;
 }
-.canvas-cell:hover{
+.draw-tool:hover{
   border: #39ecff solid 2px;
   cursor: crosshair;
+}
+.fill-tool:hover{
+  border: #39ecff solid 2px;
+  cursor: url("paint-bucket-mouse-icon.png"), auto;
 }
 .color-selector-container{
   margin-left: auto;
