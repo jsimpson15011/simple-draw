@@ -70,9 +70,6 @@ class App extends Component {
         switch (this.state.tool){
             case 'draw':
                 newState[i] = this.state.colorSelector;
-                /*        newState[i+1]=this.state.colorSelector;
-                newState[i+15]=this.state.colorSelector;
-                newState[i+16]=this.state.colorSelector;*/
                 this.setState(
                     {canvas: newState}
                 );
@@ -115,7 +112,6 @@ class App extends Component {
                         if (direction==='left'){
                             fillIndex--;
                         }
-                        //console.log((startingCell-canvasWidth)+newState[startingCell+fillIndex-canvasWidth]);
 
                         if (newState[startingCell+fillIndex]!==colorClicked||((startingCell+fillIndex)%canvasWidth)===0){
                             if(direction==='right'){
@@ -131,16 +127,16 @@ class App extends Component {
                     colorCheck=false;
                     fillIndex=0;
                 };
-                fillRow('left',i);
-                fillRow('right',i);
+                if (newState[i] !== this.state.colorSelector){
+                    fillRow('left',i);
+                    fillRow('right',i);
+                }
                 cellsToRunFillOnArray=cellsToRunFillOnArray.filter(function(item, index){
                     return cellsToRunFillOnArray.indexOf(item) >= index;
                 });
-                console.table(cellsToRunFillOnArray);
 
                 while (cellsToRunFillOnArray.length>0){
                     let runningCell=cellsToRunFillOnArray.pop();
-                    console.log(runningCell);
                     fillRow('left',runningCell);
                     fillRow('right',runningCell);
                 }
