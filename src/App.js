@@ -278,7 +278,7 @@ class App extends Component {
         if (cleared === true) {
             cleared = false;
         }
-        let newState = Array(this.state.canvasSize * this.state.canvasSize).fill(this.state.colorSelector);
+        let newState = Array(this.state.canvasSize).fill(this.state.colorSelector);
         this.setState(
             {canvas: newState}
         )
