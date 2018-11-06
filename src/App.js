@@ -254,7 +254,7 @@ class App extends Component {
                 );
             }
             historyIndex += 1;
-            let newState = Array(this.state.canvasSize * this.state.canvasSize).fill('white');
+            let newState = Array(this.state.canvasSize).fill('white');
             this.setState(
                 {canvas: newState}
             )
