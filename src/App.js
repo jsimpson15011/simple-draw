@@ -4,7 +4,6 @@ import Button from './Button.js';
 import Controls from './Controls';
 
 const history = [];
-let colorIndex = 0;
 let historyIndex = -1;
 let cleared = true;
 let canvasWidth = 15;
@@ -152,46 +151,9 @@ class App extends Component {
         }
     }
 
-    colorSelect() {
-        let newColor = '';
-        switch (colorIndex) {
-            case 0:
-                newColor = 'red';
-                break;
-            case 1:
-                newColor = 'orange';
-                break;
-            case 2:
-                newColor = 'yellow';
-                break;
-            case 3:
-                newColor = 'green';
-                break;
-            case 4:
-                newColor = 'blue';
-                break;
-            case 5:
-                newColor = 'purple';
-                break;
-            case 6:
-                newColor = 'white';
-                break;
-            case 7:
-                newColor = 'black';
-                break;
-            default:
-                newColor = 'black';
-                colorIndex = 0;
-                break;
-        }
-        if (colorIndex < 7) {
-            ++colorIndex;
-        }
-        else {
-            colorIndex = 0;
-        }
+    colorSelect = (color)=> {
         this.setState(
-            {colorSelector: newColor}
+            {colorSelector: color.hex}
         )
     }
 
@@ -205,8 +167,8 @@ class App extends Component {
             }
             this.setState(
                 {canvas: history[historyIndex]}
-            )
-            historyIndex -= 1
+            );
+            historyIndex -= 1;
             if (cleared === true) {
                 cleared = false;
             }
@@ -223,10 +185,10 @@ class App extends Component {
 
     redo() {
         if (history[historyIndex + 2]) {
-            historyIndex += 1
+            historyIndex += 1;
             this.setState(
                 {canvas: history[historyIndex + 1]}
-            )
+            );
             this.setState(
                 {undoBackground:''}
             )
@@ -284,9 +246,9 @@ class App extends Component {
         )
     }
 
-    renderButtons(i) {
-        let canvas = []
-        let buttons = []
+    renderButtons() {
+        let canvas = [];
+        let buttons = [];
         for (let i = 0; i < this.state.canvasSize; i++) {
             buttons.push(<Button
                 className={'canvas-cell '+this.state.tool+'-tool'}
@@ -306,7 +268,6 @@ class App extends Component {
     }
 
     render() {
-
         return (
             <div className="App">
                 <div className="canvas">
@@ -317,6 +278,9 @@ class App extends Component {
                         onClick={() => {
                             this.colorSelect()
                         }}
+                        color={this.state.colorSelector}
+                        onChangeComplete={this.colorSelect}
+                        colorPickerDisplay='none'
                         onUndo={() => {
                             this.undo()
                         }}
