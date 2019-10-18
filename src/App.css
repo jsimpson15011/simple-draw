@@ -26,9 +26,12 @@ button{
   border: #39ecff solid 2px;
   cursor: crosshair;
 }
+.eye-dropper-tool:hover{
+  border: #39ecff solid 2px;
+  /*cursor: url("paint-bucket-mouse-icon.png"), auto;*/
+}
 .fill-tool:hover{
   border: #39ecff solid 2px;
-  cursor: url("paint-bucket-mouse-icon.png"), auto;
 }
 .color-selector-container{
   margin-left: auto;

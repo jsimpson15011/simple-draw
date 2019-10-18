@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ChromePicker} from 'react-color';
 let pencilIconName= require('./draw-icon.png');
 let bucketIconName= require('./paint-bucket-mouse-icon.png');
+let eyeDropperIconName = require('./eye-dropper-icon.png');
 class Controls extends Component {
     state = {
         displayColorPicker: false,
@@ -70,6 +71,16 @@ class Controls extends Component {
                         <img alt={""} src={bucketIconName}/>
                         FILL
                     </button>
+                  <button className={'blue-button eye-dropper'}
+                          id={'eye-dropper'}
+                          onClick={this.props.onEyeDropper}
+                          style={{
+                            color: 'white',
+                            backgroundColor:this.props.eyeDropperBackground
+                          }}>
+                    <img alt={""} src={eyeDropperIconName}/>
+                    MATCH
+                  </button>
                 </div>
                 <div className={'undo-redo-container'}>
                     <button

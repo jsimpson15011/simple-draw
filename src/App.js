@@ -18,6 +18,7 @@ class App extends Component {
             tool: 'draw',
             drawBackground:'#4e6890',
             fillBackground:'',
+            eyeDropperBackground: '',
             undoBackground:'#909090',
             redoBackground:'#909090'
         };
@@ -28,10 +29,11 @@ class App extends Component {
             {tool: 'draw'}
         );
         this.setState(
-            {drawBackground:'#4e6890'}
-        );
-        this.setState(
-            {fillBackground:''}
+            {
+                eyeDropperBackground: '',
+                drawBackground:'#4e6890',
+                fillBackground:''
+            }
         );
     }
     fill(){
@@ -39,30 +41,46 @@ class App extends Component {
             {tool: 'fill'}
         );
         this.setState(
-            {fillBackground:'#4e6890'}
+            {
+                eyeDropperBackground: '',
+                drawBackground:'',
+                fillBackground:'#4e6890'
+            }
+        );
+    }
+    eyeDropper(){
+        this.setState(
+          {tool: 'eye-dropper'}
         );
         this.setState(
-            {drawBackground:''}
+          {
+              eyeDropperBackground: '#4e6890',
+              drawBackground:'',
+              fillBackground:''
+          }
         );
     }
     handleClick(i) {
         let newState = this.state.canvas.slice();
-        if (history[historyIndex + 1]) {
-            history[historyIndex + 1] = this.state.canvas;
-            history.length = historyIndex + 2;
+        if (this.state.tool !== 'eye-dropper'){
+            if (history[historyIndex + 1]) {
+                history[historyIndex + 1] = this.state.canvas;
+                history.length = historyIndex + 2;
+            }
+            else {
+                history.push(this.state.canvas);
+            }
+            if (cleared === true) {
+                cleared = false;
+            }
+            if (!history[historyIndex + 2]) {
+                this.setState(
+                  {redoBackground:'#909090'}
+                );
+            }
+            historyIndex += 1;
         }
-        else {
-            history.push(this.state.canvas);
-        }
-        if (cleared === true) {
-            cleared = false;
-        }
-        if (!history[historyIndex + 2]) {
-            this.setState(
-                {redoBackground:'#909090'}
-            );
-        }
-        historyIndex += 1;
+
         this.setState(
             {undoBackground:''}
         );
@@ -141,6 +159,11 @@ class App extends Component {
                 }
                 this.setState(
                     {canvas: newState}
+                );
+                break;
+            case 'eye-dropper':
+                this.setState(
+                  {colorSelector: this.state.canvas[i]}
                 );
                 break;
             default:
@@ -298,10 +321,14 @@ class App extends Component {
                         }}
                         drawBackground={this.state.drawBackground}
                         fillBackground={this.state.fillBackground}
+                        eyeDropperBackground={this.state.eyeDropperBackground}
                         undoBackground={this.state.undoBackground}
                         redoBackground={this.state.redoBackground}
                         onFill={() => {
                             this.fill()
+                        }}
+                        onEyeDropper={() => {
+                            this.eyeDropper()
                         }}
                     />
                 </div>
